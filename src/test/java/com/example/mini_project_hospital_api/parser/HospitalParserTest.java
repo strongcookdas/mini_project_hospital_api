@@ -1,5 +1,6 @@
 package com.example.mini_project_hospital_api.parser;
 
+import com.example.mini_project_hospital_api.dao.HospitalDao;
 import com.example.mini_project_hospital_api.domain.Hospital;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,20 @@ class HospitalParserTest {
 
     @Autowired
     ReadLineContext<Hospital> hospitalReadLineContext;
+
+    @Autowired
+    HospitalDao hospitalDao;
+
+    @Test
+    @DisplayName("add가 잘 되는지")
+    void add(){
+        HospitalParser hp = new HospitalParser();
+        Hospital hospital = hp.parse(line1);
+        hospitalDao.add(hospital);
+        // get이 없어서 assert는 눈으로
+
+    }
+
     @Test
     @DisplayName("10만건 이상 데이터가 파싱 되는지")
     void oneHundreadThousandRows() throws IOException {
