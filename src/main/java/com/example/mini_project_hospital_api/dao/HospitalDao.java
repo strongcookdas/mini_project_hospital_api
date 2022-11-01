@@ -34,6 +34,9 @@ public class HospitalDao {
         return this.jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
-
+    public void deleteAll(){
+        String sql = "delete from nation_wide_hospitals";
+        this.jdbcTemplate.update(sql);
+    }
 
 }
