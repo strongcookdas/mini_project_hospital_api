@@ -22,15 +22,34 @@ class HospitalParserTest {
 
     @Autowired
     HospitalDao hospitalDao;
+
     @Test
-    @DisplayName("add가 잘 되는지")
-    void add(){
+    @DisplayName("add,get이 잘 되는지")
+    void addAndGet() {
         hospitalDao.deleteAll();
-        assertEquals(0,hospitalDao.getCount());
+        assertEquals(0, hospitalDao.getCount());
         HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
         hospitalDao.add(hospital);
-        assertEquals(1,hospitalDao.getCount());
+        assertEquals(1, hospitalDao.getCount());
+
+        Hospital seletion = hospitalDao.findeById(hospital.getId());
+        assertEquals(hospital.getId(), seletion.getId());
+        assertEquals(hospital.getOpenServiceName(), seletion.getOpenServiceName());
+        assertEquals(hospital.getOpenLocalGovernmentCode(), seletion.getOpenLocalGovernmentCode());
+        assertEquals(hospital.getManagementNumber(), seletion.getManagementNumber());
+        assertTrue(seletion.getLicenseDate().isEqual(hospital.getLicenseDate()));
+        assertEquals(hospital.getBusinessStatus(), seletion.getBusinessStatus());
+        assertEquals(hospital.getBusinessStatusCode(), seletion.getBusinessStatusCode());
+        assertEquals(hospital.getPhone(), seletion.getPhone());
+        assertEquals(hospital.getFullAddress(), seletion.getFullAddress());
+        assertEquals(hospital.getRoadNameAddress(), seletion.getRoadNameAddress());
+        assertEquals(hospital.getHospitalName(), seletion.getHospitalName());
+        assertEquals(hospital.getBusinessTypeName(), seletion.getBusinessTypeName());
+        assertEquals(hospital.getHealthcareProviderCount(), seletion.getHealthcareProviderCount());
+        assertEquals(hospital.getPatientRoomCount(), seletion.getPatientRoomCount());
+        assertEquals(hospital.getTotalNumberOfBeds(), seletion.getTotalNumberOfBeds());
+        assertEquals(hospital.getTotalAreaSize(), seletion.getTotalAreaSize());
 
     }
 
@@ -57,8 +76,8 @@ class HospitalParserTest {
         Hospital hospital = hp.parse(line1);
         assertEquals(1, hospital.getId());
         assertEquals("의원", hospital.getOpenServiceName());
-        assertEquals(3620000,hospital.getOpenLocalGovernmentCode());
-        assertEquals("PHMA119993620020041100004",hospital.getManagementNumber());
+        assertEquals(3620000, hospital.getOpenLocalGovernmentCode());
+        assertEquals("PHMA119993620020041100004", hospital.getManagementNumber());
         assertEquals(LocalDateTime.of(1999, 6, 12, 0, 0, 0), hospital.getLicenseDate()); //19990612
         assertEquals(1, hospital.getBusinessStatus());
         assertEquals(13, hospital.getBusinessStatusCode());
