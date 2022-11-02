@@ -1,15 +1,13 @@
 package com.example.mini_project_hospital_api.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Hospital {
     private int id;
